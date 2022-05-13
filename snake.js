@@ -13,7 +13,13 @@ class Snake {
 
   update() {
     for (let i = 0; i < this.blocks.length; i++) {
-      this.blocks[i].draw("grey");
+      if (i == 0 || i == 1) {
+        this.blocks[i].draw("green");
+      } else if (i == this.blocks.length - 1) {
+        this.blocks[i].draw("yellow");
+      } else {
+        this.blocks[i].draw("rgb(0, 189, 0)");
+      }
     }
   }
   headMove(direction) {
@@ -51,7 +57,6 @@ class Snake {
 
   eat(x, y) {
     this.blocks.push(new Block(x, y, this.size));
-    console.log(this.blocks);
   }
 
   checkApple() {
@@ -86,6 +91,7 @@ class Block {
     this.x = x;
     this.y = y;
     this.size = size;
+    this.loc = [];
   }
 
   draw(color) {
@@ -93,8 +99,7 @@ class Block {
     ctx.fillRect(this.x, this.y, this.size, this.size);
   }
   undraw() {
-    ctx.fillStyle = "white";
-    ctx.fillRect(this.x, this.y, this.size, this.size);
+    ctx.clearRect(this.x, this.y, this.size, this.size);
   }
 
   move(direction) {

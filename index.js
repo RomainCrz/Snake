@@ -4,6 +4,9 @@ const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d");
 const snake = new Snake(blockSize);
 const span = document.querySelector("span");
+const pomme = new Image();
+pomme.src =
+  "./pngtree-pixel-game-fruit-red-apple-png-image_3287470-removebg-preview.png";
 
 let food = {};
 let foodCreated = false;
@@ -34,10 +37,8 @@ function update() {
       createFood();
     }
     if (snake.blocks[0].x == food.x && snake.blocks[0].y == food.y) {
-      console.log("snake : " + snake.blocks[0].x + " " + snake.blocks[0].y);
-      console.log("food : " + food.x + " " + food.y);
       foodCreated = false;
-      snake.eat(snake.blocks[0].x, snake.blocks[0].y);
+      snake.eat(0, 0);
       mange = true;
       snake.bodyTouch(mange);
     } else {
@@ -54,12 +55,12 @@ function createFood() {
     coordy - (coordy % blockSize),
     blockSize
   );
-  food.draw("red");
+  drawFood(food.x, food.y);
   foodCreated = true;
 }
 
 function win() {
-  if (snake.blocks.length >= 101) {
+  if (snake.blocks.length >= 100) {
     canvas.remove();
     document.body.innerHTML = `
             <div>
@@ -67,4 +68,8 @@ function win() {
             </div>
             `;
   }
+}
+
+function drawFood(x, y) {
+  ctx.drawImage(pomme, x, y, 22, 22);
 }
