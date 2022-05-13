@@ -3,6 +3,7 @@ const blockSize = 20;
 const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d");
 const snake = new Snake(blockSize);
+const span = document.querySelector("span");
 
 let food = {};
 let foodCreated = false;
@@ -21,6 +22,7 @@ launch();
 function update() {
   setInterval(() => {
     let mange = false;
+    span.textContent = "Win : " + snake.blocks.length + " /100";
     snake.headMove(direction);
     snake.bodyMove();
     snake.update();
@@ -57,7 +59,7 @@ function createFood() {
 }
 
 function win() {
-  if (snake.blocks.length >= 100) {
+  if (snake.blocks.length >= 101) {
     canvas.remove();
     document.body.innerHTML = `
             <div>
